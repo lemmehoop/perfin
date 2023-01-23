@@ -24,7 +24,7 @@ class UserManager(DjangoUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
     email = models.EmailField(unique=True, max_length=320, verbose_name="Почта")
-    name = models.CharField(max_length=63, verbose_name="Имя")
+    name = models.CharField(max_length=63, verbose_name="Имя", null=True)
 
     USERNAME_FIELD = "email"
 
