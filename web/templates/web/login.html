@@ -3,19 +3,34 @@
 {% block title %}Вход{% endblock %}
 
 {% block body %}
-    <form action="" method="post">
-        {% csrf_token %}
-        {% if form.errors %}
-            {% for field in form.non_field_errors %}
-                <p class="text-danger mb-0">{{ field }}</p>
+    <div class="form w-25 mx-auto p-3 rounded-3">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+                {% for field in form.non_field_errors %}
+                    <p class="text-danger mb-0">{{ field }}</p>
+                {% endfor %}
+            {% endif %}
+
+            {% for field in form %}
+                {% if field.name != 'remember_me' %}
+                    {{ field.label_tag }}
+                    {{ field }}
+                {% else %}
+                    {{ field }}
+                    {{ field.label_tag }}
+                {% endif %}
             {% endfor %}
-        {% endif %}
 
-        {% for field in form %}
-            {{ field.label }}<br>
-            {{ field }}<br>
-        {% endfor %}
+            <div class="text-center mb-2">
+                <button class="btn btn-primary">Войти</button>
+            </div>
 
-        <button>Войти</button>
-    </form>
+            <div class="text-center">
+                <p class="m-0 text-secondary">Еще нет аккаунта?
+                    <a href="{% url 'registration' %}" class="text-decoration-none">Зарегистрироваться</a>
+                </p>
+            </div>
+        </form>
+    </div>
 {% endblock %}

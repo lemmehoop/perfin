@@ -6,4 +6,13 @@ body {
     font-weight: bold;
     font-size: 22px;
     font-family: "Lucida Console", sans-serif;
+    line-height: 18px;
+}
+
+.container {
+    height: 80vh;
+}
+
+.form {
+    background-color: white;
 }

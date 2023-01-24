@@ -20,18 +20,19 @@ class AuthForm(forms.Form):
         self.request = request
         self.user_cache = None
         super().__init__(*args, **kwargs)
+        self.label_suffix = ""
 
     email = forms.EmailField(
         label=_("Почта"),
-        widget=forms.EmailInput(attrs={"autofocus": True, "class": "form-control"}))
+        widget=forms.EmailInput(attrs={"autofocus": True, "class": "form-control mb-3"}))
     password = forms.CharField(
         label=_("Пароль"),
         strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "current-password", "class": "form-control"}),
+        widget=forms.PasswordInput(attrs={"autocomplete": "current-password", "class": "form-control mb-3"}),
     )
     remember_me = forms.BooleanField(
         label="Запомнить меня",
-        widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input mb-3"}),
         required=False
     )
 
