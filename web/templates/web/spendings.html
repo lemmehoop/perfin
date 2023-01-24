@@ -1,0 +1,10 @@
+{% extends "web/base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block body %}
+    <h2>Главная</h2>
+    {% for spending in object_list %}
+        {{ spending.title }}, {{ spending.amount }}, {{ spending.category }}<br>
+    {% endfor %}
+{% endblock %}
