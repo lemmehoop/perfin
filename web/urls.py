@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import path
 
 from web.views.auth import RegistrationView, main, LoginView, LogoutView
-from web.views.spending_crud import SpendingsListView
+from web.views.spending_crud import SpendingsListView, add_spending
 
 urlpatterns = [
     path("", main, name="main"),
@@ -24,4 +24,5 @@ urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("spendings/", SpendingsListView.as_view(), name="spendings"),
+    path("spendings/add_spending", add_spending, name="add_spending")
 ]
