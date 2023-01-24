@@ -5,7 +5,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
-from web.models import User
+from web.models import User, Spending
 
 
 class UserCreationForm(DjangoUserCreationForm):
@@ -65,3 +65,9 @@ class AuthForm(forms.Form):
             code="invalid_login",
             params={"email": self.cleaned_data["email"]},
         )
+
+
+class SpendingForm(forms.ModelForm):
+    class Meta:
+        model = Spending
+        fields = ("title", "amount", "category")
