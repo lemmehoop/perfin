@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.urls import path
 
-from web.views.auth import RegistrationView, main, LoginView, LogoutView
-from web.views.spending_crud import SpendingsListView, add_spending
+from web.views.auth import RegistrationView, LoginView, LogoutView
+from web.views.spending_crud import main, SpendingsListView, add_spending
 
 urlpatterns = [
     path("", main, name="main"),
