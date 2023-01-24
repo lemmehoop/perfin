@@ -1,10 +1,29 @@
 {% extends "web/base.html" %}
+{% load static %}
 
 {% block title %}Главная{% endblock %}
 
 {% block body %}
     <h2>Главная</h2>
-    {% for spending in object_list %}
-        {{ spending.title }}, {{ spending.amount }}, {{ spending.category }}<br>
-    {% endfor %}
+    <div id="list">
+        {% for spending in object_list %}
+            <p>{{ spending.title }}, {{ spending.amount }}, {{ spending.category }}</p>
+        {% endfor %}
+    </div>
+
+    <br>
+    <form action="" method="post" id="s_form">
+        {% csrf_token %}
+
+        {% for field in form %}
+            {{ field.label }}<br>
+            {{ field }}<br>
+        {% endfor %}
+        <br>
+        <button id="add" type="button">Добавить</button>
+    </form>
+
+    <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="{% static 'web/spending_ajax.js' %}"></script>
+
 {% endblock %}
