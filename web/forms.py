@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, password_validation
 from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm
 from django import forms
 from django.core.exceptions import ValidationError
@@ -9,6 +9,22 @@ from web.models import User, Spending
 
 
 class UserCreationForm(DjangoUserCreationForm):
+    email = forms.EmailField(
+        label=_("Почта"),
+        label_suffix="",
+        widget=forms.EmailInput(attrs={"class": "form-control mb-3"}))
+    password1 = forms.CharField(
+        label=_("Пароль"),
+        label_suffix="",
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "form-control mb-3"}),
+        help_text=password_validation.password_validators_help_text_html(),
+    )
+    password2 = forms.CharField(
+        label=_("Подтверждение пароля"),
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "form-control mb-3"}),
+        label_suffix="",
+        help_text=_("Enter the same password as before, for verification."),
+    )
 
     class Meta:
         model = User
