@@ -1,13 +1,8 @@
 from django.http import JsonResponse
-from django.shortcuts import redirect
 from django.views.generic import ListView
 
 from web.forms import SpendingForm
 from web.models import Spending
-
-
-def main(request):
-    return redirect("spendings")
 
 
 class SpendingsListView(ListView):

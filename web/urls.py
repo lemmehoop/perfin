@@ -16,10 +16,11 @@ Including another URLconf
 from django.urls import path
 
 from web.views.auth import RegistrationView, LoginView, LogoutView
-from web.views.spending_crud import main, SpendingsListView, add_spending
+from web.views.main import MainView
+from web.views.spending_crud import SpendingsListView, add_spending
 
 urlpatterns = [
-    path("", main, name="main"),
+    path("", MainView.as_view(), name="main"),
     path("registration/", RegistrationView.as_view(), name="registration"),
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
