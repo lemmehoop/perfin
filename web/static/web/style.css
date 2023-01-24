@@ -1,0 +1,9 @@
+body {
+    background-color: rgb(237, 238, 240);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 22px;
+    font-family: "Lucida Console", sans-serif;
+}

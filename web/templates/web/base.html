@@ -5,15 +5,14 @@
     <meta charset="UTF-8">
     {% block styles %}
         <link rel="stylesheet" href="{% static 'web/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'web/style.css' %}">
     {% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg bg-body mt-0">
         <div class="container-fluid">
-            <a class="navbar-brand ms-3" href="#">
-                <img src="{% static 'logo.jpg' %}" height="26" alt="">
-            </a>
+            <a class="navbar-brand ms-3" href="#">PERFIN</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -24,7 +23,7 @@
                         <a class="nav-link" href="#">Features</a>
                         <a class="nav-link" href="#">Pricing</a>
                     {% else %}
-                        <a class="nav-link" href="#">Login</a>
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
                     {% endif %}
                 </div>
             </div>
