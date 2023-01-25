@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 
-from django.db.models import Count
+from django.db.models import Sum
 from django.http import JsonResponse
 from django.views.generic import ListView
 
@@ -22,7 +22,7 @@ class SpendingsListView(ListView):
         aggregated = Spending.objects.filter(user=self.request.user)\
             .filter(created_at__gt=date.today()-timedelta(days=31))\
             .values("category")\
-            .annotate(count=Count("id")).order_by("-count")
+            .annotate(count=Sum("amount")).order_by("-count")
         for spending in aggregated:
             res.append([Category[spending["category"]].label, spending["count"]])
 
