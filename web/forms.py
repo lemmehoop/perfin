@@ -85,6 +85,16 @@ class AuthForm(forms.Form):
 
 
 class SpendingForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.label_suffix = ""
+        for attr, value in self.fields.items():
+            if attr != "category":
+                self.fields[attr].widget.attrs.update({"class": "form-control mb-2"})
+            else:
+                self.fields[attr].widget.attrs.update({"class": "form-select mb-3"})
+
     class Meta:
+        labels = ''
         model = Spending
         fields = ("title", "amount", "category")
