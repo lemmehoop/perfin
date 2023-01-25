@@ -1,27 +1,65 @@
 {% extends "web/base.html" %}
 {% load static %}
 
-{% block title %}Главная{% endblock %}
+{% block title %}Расходы{% endblock %}
 
 {% block body %}
-    <h2>Главная</h2>
-    <div id="list">
-        {% for spending in object_list %}
-            <p>{{ spending.title }}, {{ spending.amount }}, {{ spending.category }}</p>
-        {% endfor %}
+    <div class="container-sm">
+    <div class="row">
+        <div class="col mb-3 mt-2 p-2">
+            <div class="d-flex justify-content-center mx-auto w-100 bg-white rounded-3 h-100">
+                <div id="out" class=""></div>
+                {% load googlecharts %}
+
+                {% googlecharts %}
+
+                    {% data values "out_data" %}
+                        {% col "string" "Name" %}"{{ val }}"{% endcol %}
+                        {% col "number" "Value" %}{{ val }}{% endcol %}
+                    {% enddata %}
+
+                    {% options "out_options" %}
+                        kind: "PieChart",
+                        options: {
+                            width: 460,
+                            height: 280,
+                            is3D: true,
+                            backgroundColor: 'white',
+                        }
+                    {% endoptions %}
+
+                    {% graph "out" "out_data" "out_options" %}
+                {% endgooglecharts %}
+            </div>
+        </div>
+        <div class="col mb-3 mt-2 p-2">
+            <div class="form w-100 mx-auto p-3 rounded-3 h-100">
+                <form action="" method="post" id="s_form">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {{ field.errors.0 }}
+                    {% endfor %}
+                    <div class="text-center">
+                        <button class="btn btn-primary" id="add" type="button">Добавить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <br>
-    <form action="" method="post" id="s_form">
-        {% csrf_token %}
-
-        {% for field in form %}
-            {{ field.label }}<br>
-            {{ field }}<br>
-        {% endfor %}
-        <br>
-        <button id="add" type="button">Добавить</button>
-    </form>
+    <div class="row">
+        <div class="col-6 mx-auto text-center">
+            <div id="list">
+                {% for spending in object_list %}
+                    <p>{{ spending.title }}, {{ spending.amount }}, {{ spending.category }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
 
     <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="{% static 'web/spending_ajax.js' %}"></script>
