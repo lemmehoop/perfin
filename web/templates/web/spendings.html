@@ -1,12 +1,17 @@
 {% extends "web/base.html" %}
 {% load static %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'web/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'web/style.css' %}">
+{% endblock %}
+
 {% block title %}Расходы{% endblock %}
 
 {% block body %}
     <div class="container-sm">
     <div class="row">
-        <div class="col mb-3 mt-2 p-2">
+        <div class="col mb-2 mt-2 p-2">
             <div class="d-flex justify-content-center mx-auto w-100 bg-white rounded-3 h-100">
                 <div id="out" class=""></div>
                 {% load googlecharts %}
@@ -32,7 +37,7 @@
                 {% endgooglecharts %}
             </div>
         </div>
-        <div class="col mb-3 mt-2 p-2">
+        <div class="col mb-2 mt-2 p-2">
             <div class="form w-100 mx-auto p-3 rounded-3 h-100">
                 <form action="" method="post" id="s_form">
                     {% csrf_token %}
@@ -51,10 +56,18 @@
     </div>
 
     <div class="row">
-        <div class="col-6 mx-auto text-center">
+        <div class="spendings col-6 mx-auto text-center bg-white rounded-3">
             <div id="list">
                 {% for spending in object_list %}
-                    <p>{{ spending.title }}, {{ spending.amount }}, {{ spending.category }}</p>
+                    <div class="card text-center mt-2">
+                        <div class="card-body p-0">
+                            <h5 class="card-title mt-1 mb-1">{{ spending.title }}</h5>
+                            <p class="card-text">На сумму {{ spending.amount }}₽ | В категории {{ spending.category }}</p>
+                        </div>
+                        <div class="card-footer text-muted p-0">
+                            {{ spending.created_at|date:"d.m.Y H:i" }}
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
         </div>

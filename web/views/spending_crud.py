@@ -14,7 +14,7 @@ class SpendingsListView(ListView):
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            return Spending.objects.filter(user=self.request.user)
+            return Spending.objects.filter(user=self.request.user).order_by("-created_at")
         return Spending.objects.none()
 
     def get_values(self):

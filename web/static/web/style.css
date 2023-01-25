@@ -16,3 +16,29 @@ body {
 .form {
     background-color: white;
 }
+
+.spendings {
+    height: 250px;
+    overflow-y: scroll;
+}
+
+.card {
+    height: 62px;
+}
+
+.card-title {
+    font-family: "Lucida Console", sans-serif;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.card-text {
+    font-size: 15px;
+    line-height: 17px;
+}
+
+.card-footer {
+    height: 12px;
+    font-size: 10px;
+    line-height: 10px;
+}
