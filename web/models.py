@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, UserManager as DjangoUserManager
 
+from web.enums import Category
+
 
 class UserManager(DjangoUserManager):
     def _create_user(self, email, password, commit=True, **extra_fields):
@@ -33,17 +35,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_superuser
 
 
-class Category(models.Model):
-    title = models.CharField(max_length=127, verbose_name="Название")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-
-    def __str__(self):
-        return f"{self.title}"
-
-
 class BaseModel(models.Model):
     title = models.CharField(max_length=127, verbose_name="Название")
-    category = models.ForeignKey(Category, on_delete=models.RESTRICT, verbose_name="Категория")
+    category = models.CharField(
+        max_length=15,
+        choices=Category.choices,
+        default=Category.other,
+        verbose_name="Категория"
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
