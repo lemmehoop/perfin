@@ -98,3 +98,15 @@ class SpendingForm(forms.ModelForm):
         labels = ''
         model = Spending
         fields = ("title", "amount", "category")
+
+
+class UserForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.label_suffix = ""
+        for attr, value in self.fields.items():
+            self.fields[attr].widget.attrs.update({"class": "form-control"})
+
+    class Meta:
+        model = User
+        fields = ("email", "name")
