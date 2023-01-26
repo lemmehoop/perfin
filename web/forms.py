@@ -105,7 +105,7 @@ class UserForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.label_suffix = ""
         for attr, value in self.fields.items():
-            self.fields[attr].widget.attrs.update({"class": "form-control"})
+            self.fields[attr].widget.attrs.update({"class": "form-control mb-3"})
 
     class Meta:
         model = User
