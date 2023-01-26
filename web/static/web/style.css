@@ -23,22 +23,20 @@ body {
 }
 
 .card {
-    height: 62px;
+    height: 45px;
 }
 
 .card-title {
-    font-family: "Lucida Console", sans-serif;
     font-size: 18px;
     line-height: 20px;
 }
 
-.card-text {
-    font-size: 15px;
-    line-height: 17px;
-}
-
-.card-footer {
+.time {
     height: 12px;
     font-size: 10px;
     line-height: 10px;
+}
+
+.col > .row {
+    font-size: 15px;
 }

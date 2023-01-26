@@ -59,13 +59,24 @@
         <div class="spendings col-6 mx-auto text-center bg-white rounded-3">
             <div id="list">
                 {% for spending in object_list %}
-                    <div class="card text-center mt-2">
-                        <div class="card-body p-0">
-                            <h5 class="card-title mt-1 mb-1">{{ spending.title|capfirst }}</h5>
-                            <p class="card-text">На сумму {{ spending.amount }}₽ | В категории {{ spending.category }}</p>
-                        </div>
-                        <div class="card-footer text-muted p-0">
-                            {{ spending.created_at|date:"d.m.Y H:i" }}
+                    <div class="card mt-2">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <p class="card-title mt-1 mb-1 fw-normal flex-column">{{ spending.title|capfirst }}</p>
+                                </div>
+                                <div class="row">
+                                    <p class="m-0 time">{{ spending.created_at|date:"d.m.Y H:i" }}</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <p class="m-0 mx-auto text-danger">-{{ spending.amount }} ₽</p>
+                                </div>
+                                <div class="row">
+                                    <p class="m-0 mx-auto">{{ spending.category }}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}

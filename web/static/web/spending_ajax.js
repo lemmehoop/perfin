@@ -6,13 +6,24 @@ $('#add').on("click", function () {
         data: $('#s_form').serialize(),
         success: function (response) {
             let new_div = document.createElement("div")
-            new_div.className = "card text-center mt-2"
-            new_div.innerHTML = "                        <div class=\"card-body p-0\">" +
-                "                            <h5 class=\"card-title mt-1 mb-1\">" + response.title +"</h5>" +
-                "                            <p class=\"card-text\">На сумму "+ response.amount +"₽ | В категории "+ response.category +"</p>" +
-                "                        </div>" +
-                "                        <div class=\"card-footer text-muted p-0\">\n" +
-                "                            Только что" +
+            new_div.className = "card mt-2"
+            new_div.innerHTML = "<div class=\"row\">" +
+                "                            <div class=\"col\">" +
+                "                                <div class=\"row\">" +
+                "                                    <p class=\"card-title mt-1 mb-1 fw-normal flex-column\">" + response.title + "</p>" +
+                "                                </div>" +
+                "                                <div class=\"row\">" +
+                "                                    <p class=\"m-0 time\">Только что</p>" +
+                "                                </div>" +
+                "                            </div>" +
+                "                            <div class=\"col\">" +
+                "                                <div class=\"row\">" +
+                "                                    <p class=\"m-0 mx-auto text-danger\">-"+ response.amount +" ₽</p>" +
+                "                                </div>" +
+                "                                <div class=\"row\">" +
+                "                                    <p class=\"m-0 mx-auto\">" + response.category + "</p>" +
+                "                                </div>" +
+                "                            </div>" +
                 "                        </div>"
             parent_div = document.getElementById("list");
             first_child = parent_div.firstChild;
