@@ -9,7 +9,7 @@
                 {% csrf_token %}
                 {% if form.errors %}
                     {% for field in form.non_field_errors %}
-                        <p class="text-danger mb-0">{{ field }}</p>
+                        <p class="text-danger mb-0 text-center border border-danger rounded-3 mb-2">{{ field }}</p>
                     {% endfor %}
                 {% endif %}
 

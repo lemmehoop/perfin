@@ -40,11 +40,11 @@ class AuthForm(forms.Form):
 
     email = forms.EmailField(
         label=_("Почта"),
-        widget=forms.EmailInput(attrs={"autofocus": True, "class": "form-control mb-3"}))
+        widget=forms.EmailInput(attrs={"autofocus": True, "class": "form-control mb-2"}))
     password = forms.CharField(
         label=_("Пароль"),
         strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "current-password", "class": "form-control mb-3"}),
+        widget=forms.PasswordInput(attrs={"autocomplete": "current-password", "class": "form-control mb-2"}),
     )
     remember_me = forms.BooleanField(
         label="Запомнить меня",

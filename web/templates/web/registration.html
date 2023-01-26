@@ -11,7 +11,16 @@
                 {% for field in form %}
                     {{ field.label_tag }}
                     {{ field }}
-                    {{ field.errors.0 }}
+                    {% if field.errors.0 %}
+                        <script>
+                            let name = '{{ field.name }}';
+                            let field = document.getElementById("id_" + name);
+                            field.style.border = "1px solid red";
+                            field.className = "mb-0 form-control";
+                        </script>
+                        <p class="text-danger m-0 mb-2 text-center fs-6" style="font-size: 2px">{{ field.errors.0 }}</p>
+                        {{ field.id }}
+                    {% endif %}
                 {% endfor %}
                 <div class="text-center">
                     <button class="btn btn-primary">Зарегистрироваться</button>
