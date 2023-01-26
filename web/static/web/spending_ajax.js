@@ -6,7 +6,7 @@ $('#add').on("click", function () {
         data: $('#s_form').serialize(),
         success: function (response) {
             let new_div = document.createElement("div")
-            new_div.className = "card mt-2"
+            new_div.className = "card mb-2 mt-1"
             new_div.innerHTML = "<div class=\"row\">" +
                 "                            <div class=\"col\">" +
                 "                                <div class=\"row\">" +

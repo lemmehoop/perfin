@@ -1,5 +1,6 @@
 from django.http import JsonResponse
-from django.views.generic import ListView
+from django.urls import reverse
+from django.views.generic import ListView, UpdateView
 
 from web.forms import SpendingForm
 from web.models import Spending
@@ -20,6 +21,20 @@ class SpendingsListView(ListView):
             **super(SpendingsListView, self).get_context_data(),
             "form": SpendingForm,
         }
+
+
+class SpendingUpdateView(UpdateView):
+    template_name = "web/spending.html"
+    form_class = SpendingForm
+    slug_field = "id"
+    slug_url_kwarg = "id"
+
+    def get_queryset(self):
+        queryset = Spending.objects.filter(user=self.request.user)
+        return queryset
+
+    def get_success_url(self):
+        return reverse("spendings")
 
 
 def add_spending(request):

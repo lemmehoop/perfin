@@ -17,7 +17,7 @@ from django.urls import path
 
 from web.views.auth import RegistrationView, LoginView, LogoutView
 from web.views.main import MainView
-from web.views.spending_crud import SpendingsListView, add_spending
+from web.views.spending_crud import SpendingsListView, add_spending, SpendingUpdateView
 from web.views.stats import StatsView
 
 urlpatterns = [
@@ -27,5 +27,6 @@ urlpatterns = [
     path("logout/", LogoutView.as_view(), name="logout"),
     path("spendings/", SpendingsListView.as_view(), name="spendings"),
     path("spendings/add_spending", add_spending, name="add_spending"),
+    path("spendings/<int:id>/", SpendingUpdateView.as_view(), name="update_spending"),
     path("stats/", StatsView.as_view(), name="stats"),
 ]
