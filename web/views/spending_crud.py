@@ -1,10 +1,6 @@
-from datetime import date, timedelta
-
-from django.db.models import Sum
 from django.http import JsonResponse
 from django.views.generic import ListView
 
-from web.enums import Category
 from web.forms import SpendingForm
 from web.models import Spending
 
@@ -17,24 +13,12 @@ class SpendingsListView(ListView):
             return Spending.objects.filter(user=self.request.user).order_by("-created_at")
         return Spending.objects.none()
 
-    def get_values(self):
-        res = []
-        aggregated = Spending.objects.filter(user=self.request.user)\
-            .filter(created_at__gt=date.today()-timedelta(days=31))\
-            .values("category")\
-            .annotate(count=Sum("amount")).order_by("-count")
-        for spending in aggregated:
-            res.append([Category[spending["category"]].label, spending["count"]])
-
-        return res
-
     def get_context_data(self, *, object_list=None, **kwargs):
         if not self.request.user.is_authenticated:
             return {}
         return {
             **super(SpendingsListView, self).get_context_data(),
             "form": SpendingForm,
-            "values": self.get_values()
         }
 
 

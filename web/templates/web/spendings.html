@@ -9,80 +9,51 @@
 {% block title %}Расходы{% endblock %}
 
 {% block body %}
-    <div class="container-sm">
-    <div class="row">
-        <div class="col mb-2 mt-2 p-2">
-            <div class="d-flex justify-content-center mx-auto w-100 bg-white rounded-3 h-100">
-                <div id="out" class=""></div>
-                {% load googlecharts %}
+    <div class="container-sm d-flex align-items-center">
+        <div class="row w-100">
+            <div class="col-6 mb-2 mt-3 px-3">
+                <div class="form w-100 mx-auto p-3 rounded-3 h-100">
+                    <form action="" method="post" id="s_form">
+                        {% csrf_token %}
 
-                {% googlecharts %}
-
-                    {% data values "out_data" %}
-                        {% col "string" "Name" %}"{{ val }}"{% endcol %}
-                        {% col "number" "Value" %}{{ val }}{% endcol %}
-                    {% enddata %}
-
-                    {% options "out_options" %}
-                        kind: "PieChart",
-                        options: {
-                            width: 460,
-                            height: 280,
-                            is3D: true,
-                            backgroundColor: 'white',
-                        }
-                    {% endoptions %}
-
-                    {% graph "out" "out_data" "out_options" %}
-                {% endgooglecharts %}
+                        {% for field in form %}
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {{ field.errors.0 }}
+                        {% endfor %}
+                        <div class="text-center">
+                            <button class="btn btn-primary" id="add" type="button">Добавить</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="col mb-2 mt-2 p-2">
-            <div class="form w-100 mx-auto p-3 rounded-3 h-100">
-                <form action="" method="post" id="s_form">
-                    {% csrf_token %}
-
-                    {% for field in form %}
-                        {{ field.label_tag }}
-                        {{ field }}
-                        {{ field.errors.0 }}
-                    {% endfor %}
-                    <div class="text-center">
-                        <button class="btn btn-primary" id="add" type="button">Добавить</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="spendings col-6 mx-auto text-center bg-white rounded-3">
-            <div id="list">
-                {% for spending in object_list %}
-                    <div class="card mt-2">
-                        <div class="row">
-                            <div class="col">
-                                <div class="row">
-                                    <p class="card-title mt-1 mb-1 fw-normal flex-column">{{ spending.title|capfirst }}</p>
+            <div class="spendings col mx-auto text-center bg-white rounded-3 mt-3">
+                <div id="list" class="pt-2 pb-1">
+                    {% for spending in object_list %}
+                        <div class="card mb-2 mt-1">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <p class="card-title mt-1 mb-1 fw-normal flex-column">{{ spending.title|capfirst }}</p>
+                                    </div>
+                                    <div class="row">
+                                        <p class="m-0 time">{{ spending.created_at|date:"d.m.Y H:i" }}</p>
+                                    </div>
                                 </div>
-                                <div class="row">
-                                    <p class="m-0 time">{{ spending.created_at|date:"d.m.Y H:i" }}</p>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="row">
-                                    <p class="m-0 mx-auto text-danger">-{{ spending.amount }} ₽</p>
-                                </div>
-                                <div class="row">
-                                    <p class="m-0 mx-auto">{{ spending.category }}</p>
+                                <div class="col">
+                                    <div class="row">
+                                        <p class="m-0 mx-auto text-danger">-{{ spending.amount }} ₽</p>
+                                    </div>
+                                    <div class="row">
+                                        <p class="m-0 mx-auto">{{ spending.category }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     <script src="http://code.jquery.com/jquery-3.2.1.js"></script>

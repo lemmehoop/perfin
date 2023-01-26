@@ -9,7 +9,7 @@ body {
     line-height: 18px;
 }
 
-.container {
+.container, .container-sm {
     height: 80vh;
 }
 
@@ -18,7 +18,7 @@ body {
 }
 
 .spendings {
-    height: 250px;
+    height: 286px !important;
     overflow-y: scroll;
 }
 
