@@ -15,10 +15,8 @@ Including another URLconf
 """
 from django.urls import path
 
-from web.views.auth import RegistrationView, LoginView, LogoutView
-from web.views.main import MainView
-from web.views.spending_crud import SpendingsListView, add_spending, SpendingUpdateView
-from web.views.stats import StatsView
+from web.views import RegistrationView, LoginView, LogoutView, MainView, SpendingsListView, add_spending, \
+    SpendingUpdateView, StatsView, ProfileFormView
 
 urlpatterns = [
     path("", MainView.as_view(), name="main"),
@@ -29,4 +27,5 @@ urlpatterns = [
     path("spendings/add_spending", add_spending, name="add_spending"),
     path("spendings/<int:id>/", SpendingUpdateView.as_view(), name="update_spending"),
     path("stats/", StatsView.as_view(), name="stats"),
+    path("profile/", ProfileFormView.as_view(), name="profile")
 ]
