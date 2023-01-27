@@ -23,6 +23,10 @@ class StatsView(View):
     def get(self, request):
         context = {
             "values": self.get_values(request),
+            "categories": Category.choices
         }
 
         return render(self.request, "web/stats.html", context)
+
+    def post(self, request):
+        pass
