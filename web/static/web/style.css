@@ -40,3 +40,7 @@ body {
 .col > .row {
     font-size: 15px;
 }
+
+.row > .row {
+    width: 90%
+}
