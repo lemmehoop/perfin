@@ -1,3 +1,6 @@
+from datetime import date, timedelta
+
+from django.db.models import Q
 from django.http import JsonResponse
 from django.urls import reverse
 from django.views.generic import ListView, UpdateView
@@ -11,7 +14,8 @@ class SpendingsListView(ListView):
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            return Spending.objects.filter(user=self.request.user).order_by("-created_at")
+            return Spending.objects.filter(Q(user=self.request.user) &
+                                           Q(created_at__gte=date.today()-timedelta(weeks=1))).order_by("-created_at")
         return Spending.objects.none()
 
     def get_context_data(self, *, object_list=None, **kwargs):
