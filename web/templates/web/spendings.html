@@ -13,18 +13,7 @@
         <div class="row w-100">
             <div class="col-6 mb-2 mt-3 px-3">
                 <div class="form w-100 mx-auto p-3 rounded-3 h-100">
-                    <form action="" method="post" id="s_form">
-                        {% csrf_token %}
-
-                        {% for field in form %}
-                            {{ field.label_tag }}
-                            {{ field }}
-                            {{ field.errors.0 }}
-                        {% endfor %}
-                        <div class="text-center">
-                            <button class="btn btn-primary" id="add" type="button">Добавить</button>
-                        </div>
-                    </form>
+                    {% include "web/snippets/form.html" with button="Добавить" id="s_form" type="button" %}
                 </div>
             </div>
             <div class="spendings col mx-auto text-center bg-white rounded-3 mt-3">

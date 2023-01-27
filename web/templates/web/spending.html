@@ -5,18 +5,7 @@
 {% block body %}
     <div class="container d-flex align-items-center">
         <div class="form w-50 mx-auto p-3 rounded-3">
-            <form action="" method="post" id="s_form">
-                {% csrf_token %}
-
-                {% for field in form %}
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {{ field.errors.0 }}
-                {% endfor %}
-                <div class="text-center">
-                    <button class="btn btn-primary" id="add">Сохранить</button>
-                </div>
-            </form>
+            {% include "web/snippets/form.html" with button="Сохранить" type="submit" %}
         </div>
     </div>
 {% endblock %}
