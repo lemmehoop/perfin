@@ -4,8 +4,13 @@
 
 {% block body %}
     <div class="container d-flex align-items-center">
-        <div class="form w-50 mx-auto p-3 rounded-3">
-            {% include "web/snippets/form.html" with button="Сохранить" %}
+        <div class="centered w-100">
+            <div class="form w-50 mx-auto p-3 rounded-3">
+                {% include "web/snippets/form.html" with button="Сохранить" %}
+            </div>
+            <div class="text-center mt-3">
+                <a href="{% url 'logout' %}" class="btn btn-danger">Выйти</a>
+            </div>
         </div>
     </div>
 {% endblock %}
