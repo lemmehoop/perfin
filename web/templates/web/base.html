@@ -20,6 +20,7 @@
                 <div class="navbar-nav ms-auto me-5">
                     {% if user.is_authenticated %}
                         <a class="nav-link" href="{% url 'spendings' %}">Расходы</a>
+                        <a class="nav-link" href="{% url 'reminders' %}">Напоминания</a>
                         <a class="nav-link" href="{% url 'stats' %}">Статистика</a>
                         <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
                     {% else %}

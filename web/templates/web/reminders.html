@@ -1,0 +1,45 @@
+{% extends "web/base.html" %}
+{% load static %}
+
+{% block title %}Напоминания{% endblock %}
+
+{% block body %}
+    <div class="container-sm d-flex align-items-center">
+        <div class="row w-100">
+            <div class="col-6 mb-2 mt-3 px-3">
+                <div class="form w-100 mx-auto p-3 rounded-3 h-100">
+                    {% include "web/snippets/form.html" with button="Добавить" id="r_form" type="button" %}
+                </div>
+            </div>
+            <div class="spendings col mx-auto text-center bg-white rounded-3 mt-3">
+                <div id="list" class="pt-2 pb-1">
+                    {% for spending in object_list %}
+                        <div class="card mb-2 mt-1" onclick="document.location.href = ''">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <p class="card-title mt-1 mb-1 fw-normal flex-column">{{ spending.title|capfirst }}</p>
+                                    </div>
+                                    <div class="row">
+                                        <p class="m-0 time">{{ spending.remind_at|date:"d.m.Y H:i" }}</p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <p class="m-0 mx-auto text-danger">-{{ spending.amount }} ₽</p>
+                                    </div>
+                                    <div class="row">
+                                        <p class="m-0 mx-auto">{{ spending.text|slice:15 }}...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="{% static 'web/reminder_ajax.js' %}"></script>
+{% endblock %}
