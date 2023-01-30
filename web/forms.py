@@ -5,7 +5,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
-from web.models import User, Spending
+from web.models import User, Spending, Reminder
 
 
 class UserCreationForm(DjangoUserCreationForm):
@@ -113,3 +113,23 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("email", "name")
+
+
+class ReminderForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.label_suffix = ""
+        for attr, value in self.fields.items():
+            if attr == "category":
+                self.fields[attr].widget.attrs.update({"class": "form-select mb-3"})
+            elif attr == "text":
+                self.fields[attr].widget.attrs.update({"class": "form-control mb-2", "rows": "1"})
+            else:
+                self.fields[attr].widget.attrs.update({"class": "form-control mb-2"})
+
+    class Meta:
+        model = Reminder
+        fields = ("title", "remind_at", "text", "category")
+        widgets = {
+            "remind_at": forms.DateTimeInput(attrs={"class": "form-control mb-2", "type": "datetime-local"})
+        }
