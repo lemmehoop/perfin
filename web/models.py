@@ -44,13 +44,13 @@ class BaseModel(models.Model):
         verbose_name="Категория"
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.IntegerField(verbose_name="Сумма")
 
     class Meta:
         abstract = True
 
 
 class Spending(BaseModel):
-    amount = models.IntegerField(verbose_name="Сумма")
     created_at = models.DateTimeField(auto_now_add=True)
 
 
