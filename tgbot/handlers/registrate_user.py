@@ -35,6 +35,8 @@ async def registrate(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
         await update.message.reply_text(
             f"Аккаунт с почтой {user.email} привязан к этому чату\nОжидаю уведомления...",
         )
+        user.chat_id = update.message.chat_id
+        await sync_to_async(user.save)()
         return ConversationHandler.END
     else:
         await update.message.reply_text("Пароль или почта неправильные\nПопробуйте еще раз")
