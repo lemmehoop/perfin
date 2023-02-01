@@ -14,7 +14,7 @@ bot = Application.builder().token(BOT_TOKEN).build()
 bot.add_handler(ConversationHandler(
     entry_points=[CommandHandler("start", start)],
     states={
-        REGISTRATION: [MessageHandler(filters.TEXT, registrate)]
+        REGISTRATION: [MessageHandler(filters.TEXT, registrate)],
     },
     fallbacks=[]
 ))
