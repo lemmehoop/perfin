@@ -1,1 +1,1 @@
-from tgbot.handlers.broadcast_message import *
+from tgbot.handlers.registrate_user import *
