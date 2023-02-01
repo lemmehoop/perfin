@@ -41,3 +41,10 @@ async def registrate(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     else:
         await update.message.reply_text("Пароль или почта неправильные\nПопробуйте еще раз")
         return REGISTRATION
+
+
+async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        text="Останавливаюсь"
+    )
+    return ConversationHandler.END

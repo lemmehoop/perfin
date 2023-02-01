@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv, find_dotenv
 from telegram.ext import Application, CommandHandler, ConversationHandler, MessageHandler, filters
 
-from tgbot.handlers import start, registrate, REGISTRATION
+from tgbot.handlers import start, registrate, REGISTRATION, stop
 
 load_dotenv(find_dotenv())
 
@@ -16,7 +16,7 @@ bot.add_handler(ConversationHandler(
     states={
         REGISTRATION: [MessageHandler(filters.TEXT, registrate)],
     },
-    fallbacks=[]
+    fallbacks=[CommandHandler("stop", stop)]
 ))
 
 if __name__ == "__main__":
