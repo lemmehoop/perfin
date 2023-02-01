@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_celery_beat',
     'googlecharts',
-    'web',
     'tgbot',
+    'web',
 ]
 
 MIDDLEWARE = [
