@@ -11,30 +11,39 @@
                     {% include "web/snippets/form.html" with button="Добавить" id="r_form" type="button" %}
                 </div>
             </div>
-            <div class="spendings col mx-auto text-center bg-white rounded-3 mt-3">
-                <div id="list" class="pt-2 pb-1">
-                    {% for spending in object_list %}
-                        <div class="card mb-2 mt-1" onclick="document.location.href = ''">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="row">
-                                        <p class="card-title mt-1 mb-1 fw-normal flex-column">{{ spending.title|capfirst }}</p>
+            <div class="col p-0">
+                <div class="reminders row mx-auto text-center bg-white rounded-3 mt-3" style="height: 362px; overflow-y: scroll">
+                    <div id="list" class="pt-2 pb-1">
+                        {% for spending in object_list %}
+                            <div class="card mb-2 mt-1" onclick="document.location.href = ''">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="row">
+                                            <p class="card-title mt-1 mb-1 fw-normal flex-column">{{ spending.title|capfirst }}</p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="m-0 time">{{ spending.remind_at|date:"d.m.Y H:i" }}</p>
+                                        </div>
                                     </div>
-                                    <div class="row">
-                                        <p class="m-0 time">{{ spending.remind_at|date:"d.m.Y H:i" }}</p>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="row">
-                                        <p class="m-0 mx-auto text-danger">-{{ spending.amount }} ₽</p>
-                                    </div>
-                                    <div class="row">
-                                        <p class="m-0 mx-auto">{{ spending.text|slice:15 }}...</p>
+                                    <div class="col">
+                                        <div class="row">
+                                            <p class="m-0 mx-auto text-warning">{{ spending.amount }} ₽</p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="m-0 mx-auto">{{ spending.text|slice:15 }}...</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row bg-white rounded-3 mt-3 mx-auto p-2 text-center">
+                    <p class="m-0 fs-5">
+                        You should register in
+                        <a href="https://t.me/perfin1_bot" class="text-decoration-none" target="_blank">perfin bot</a>
+                        to get notifications
+                    </p>
                 </div>
             </div>
         </div>

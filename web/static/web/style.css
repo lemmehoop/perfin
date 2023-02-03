@@ -44,3 +44,8 @@ body {
 .row > .row {
     width: 90%
 }
+
+.reminders {
+    height: 362px;
+    overflow-y: scroll;
+}

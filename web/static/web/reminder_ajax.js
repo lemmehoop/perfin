@@ -18,7 +18,7 @@ $('#add').on("click", function () {
                 "                            </div>" +
                 "                            <div class=\"col\">" +
                 "                                <div class=\"row\">" +
-                "                                    <p class=\"m-0 mx-auto text-danger\">-"+ response.amount +" ₽</p>" +
+                "                                    <p class=\"m-0 mx-auto text-warning\">"+ response.amount +" ₽</p>" +
                 "                                </div>" +
                 "                                <div class=\"row\">" +
                 "                                    <p class=\"m-0 mx-auto\">" + response.text.substr(0, 15) + "...</p>" +
