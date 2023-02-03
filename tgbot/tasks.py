@@ -1,11 +1,12 @@
 from telegram import Update
 
 from perfin.celery import app
-from tgbot.main import bot_app
+from tgbot.dispatcher import dispatcher
+from tgbot.main import bot
 
 
 @app.task(ignore_result=True)
 def process_telegram_event(update_json):
-    update = Update.de_json(update_json, bot_app.bot)
+    update = Update.de_json(update_json, bot)
     print(update.message.text)
-    bot_app.process_update(update)
+    dispatcher.process_update(update)
