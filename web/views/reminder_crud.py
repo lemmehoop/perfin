@@ -47,22 +47,23 @@ def add_reminder(request):
         amount=amount,
         user=request.user
     )
+    aware_datetime -= aware_datetime.utcoffset()
 
-    # crontab, _ = CrontabSchedule.objects.get_or_create(
-    #     minute=remind_at[-2:],
-    #     hour=remind_at[-5:-3],
-    #     day_of_week="*",
-    #     day_of_month=remind_at[-8:-6],
-    #     month_of_year="*",
-    # )
-    #
-    # PeriodicTask.objects.create(
-    #     name=f"send_notification_{reminder.id}",
-    #     task="send_notification",
-    #     crontab=crontab,
-    #     kwargs=json.dumps({"id": reminder.id}),
-    #     start_time=timezone.now(),
-    # )
+    crontab, _ = CrontabSchedule.objects.get_or_create(
+        minute=str(aware_datetime.minute),
+        hour=str(aware_datetime.hour),
+        day_of_week="*",
+        day_of_month=str(aware_datetime.day),
+        month_of_year="*",
+    )
+
+    PeriodicTask.objects.create(
+        name=f"send_notification_{reminder.id}",
+        task="send_notification",
+        crontab=crontab,
+        kwargs=json.dumps({"id": reminder.id}),
+        start_time=timezone.now(),
+    )
 
     return JsonResponse({
         "title": reminder.title,
