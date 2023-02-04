@@ -10,7 +10,7 @@ $('#add').on("click", function () {
             new_div.innerHTML = "<div class=\"row\">" +
                 "                            <div class=\"col\">" +
                 "                                <div class=\"row\">" +
-                "                                    <p class=\"card-title mt-1 mb-1 fw-normal flex-column\">" + response.title + "</p>" +
+                "                                    <p class=\"card-title mt-1 mb-1 fw-normal flex-column\">" + response.title.substr(0, 27) + "</p>" +
                 "                                </div>" +
                 "                                <div class=\"row\">" +
                 "                                    <p class=\"m-0 time\">Только что</p>" +
