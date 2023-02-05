@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, password_validation
 from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm
 from django import forms
+from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -104,15 +105,27 @@ class UserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.label_suffix = ""
+        self.fields["email"].widget.attrs["readonly"] = ""
+        self.fields["password"].required = False
         for attr, value in self.fields.items():
             if attr == "name":
                 self.fields[attr].widget.attrs.update({"class": "form-control mb-3"})
             else:
                 self.fields[attr].widget.attrs.update({"class": "form-control mb-2"})
 
+    def clean(self):
+        cleaned_data = super().clean()
+        unhashed_password = cleaned_data["password"]
+        if unhashed_password:
+            cleaned_data["password"] = make_password(unhashed_password)
+        else:
+            cleaned_data.pop("password")
+        return cleaned_data
+
     class Meta:
         model = User
-        fields = ("email", "name")
+        fields = ("email", "name", "password")
+        widgets = {"password": forms.PasswordInput()}
 
 
 class ReminderForm(forms.ModelForm):
