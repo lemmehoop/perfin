@@ -4,8 +4,16 @@
 
 {% block body %}
     <div class="container d-flex align-items-center">
-        <div class="form w-50 mx-auto p-3 rounded-3">
-            {% include "web/snippets/form.html" with button="Сохранить" type="submit" %}
+        <div class="centered w-100">
+            <div class="form w-50 mx-auto p-3 rounded-3">
+                {% include "web/snippets/form.html" with button="Сохранить" type="submit" %}
+            </div>
+            <div class="text-center mt-3">
+                <form method="post" action="{% url "delete_reminder" object.id %}">
+                   {% csrf_token %}
+                    <input type="submit" class="btn btn-danger" value="Удалить">
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}

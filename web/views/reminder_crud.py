@@ -6,7 +6,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.utils.timezone import make_aware
 from django.utils.datetime_safe import datetime
-from django.views.generic import ListView, UpdateView
+from django.views.generic import ListView, UpdateView, DeleteView
 from django_celery_beat.models import CrontabSchedule, PeriodicTask
 
 from web.models import Reminder
@@ -30,10 +30,10 @@ class RemindersListView(ListView):
 
 
 class ReminderUpdateView(UpdateView):
-    template_name = "web/single_obj_update.html"
-    form_class = ReminderForm
     slug_field = "id"
     slug_url_kwarg = "id"
+    form_class = ReminderForm
+    template_name = "web/single_obj_update.html"
 
     def get_queryset(self):
         queryset = Reminder.objects.filter(user=self.request.user)
@@ -52,6 +52,22 @@ class ReminderUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse("reminders")
+
+
+class ReminderDeleteView(DeleteView):
+    model = Reminder
+    slug_field = "id"
+    slug_url_kwarg = "id"
+
+    def get_success_url(self):
+        return reverse("reminders")
+
+    def form_valid(self, form):
+        task = PeriodicTask.objects.filter(name=f"send_notification_{self.object.id}").first()
+        CrontabSchedule.objects.filter(pk=task.crontab_id).first().delete()
+        task.delete()
+        super(ReminderDeleteView, self).form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 def add_reminder(request):
