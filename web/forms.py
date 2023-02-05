@@ -131,5 +131,5 @@ class ReminderForm(forms.ModelForm):
         model = Reminder
         fields = ("title", "remind_at", "text", "amount", "category")
         widgets = {
-            "remind_at": forms.DateTimeInput(attrs={"class": "form-control mb-2", "type": "datetime-local"})
+            "remind_at": forms.DateTimeInput(format='%Y-%m-%dT%H:%M', attrs={"class": "form-control mb-2", "type": "datetime-local"})
         }

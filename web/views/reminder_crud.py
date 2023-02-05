@@ -1,16 +1,16 @@
 import json
 
+from django.urls import reverse
 from pytz import timezone as tz
-from django.conf import settings
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.utils import timezone
-from django.utils.datetime_safe import datetime
 from django.utils.timezone import make_aware
-from django.views.generic import ListView
+from django.utils.datetime_safe import datetime
+from django.views.generic import ListView, UpdateView
 from django_celery_beat.models import CrontabSchedule, PeriodicTask
 
-from web.forms import ReminderForm
 from web.models import Reminder
+from web.forms import ReminderForm
 
 
 class RemindersListView(ListView):
@@ -27,6 +27,31 @@ class RemindersListView(ListView):
             **super(RemindersListView, self).get_context_data(),
             "form": ReminderForm,
         }
+
+
+class ReminderUpdateView(UpdateView):
+    template_name = "web/single_obj_update.html"
+    form_class = ReminderForm
+    slug_field = "id"
+    slug_url_kwarg = "id"
+
+    def get_queryset(self):
+        queryset = Reminder.objects.filter(user=self.request.user)
+        return queryset
+
+    def form_valid(self, form):
+        super(ReminderUpdateView, self).form_valid(form)
+        task = PeriodicTask.objects.filter(name=f"send_notification_{self.object.id}").first()
+        cron = CrontabSchedule.objects.filter(pk=task.crontab_id).first()
+        cron.minute = str(self.object.remind_at.minute)
+        self.object.remind_at -= self.object.remind_at.utcoffset()  # to contain datetime in UTC
+        cron.hour = str(self.object.remind_at.hour)
+        cron.day_of_month = str(self.object.remind_at.day)
+        cron.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse("reminders")
 
 
 def add_reminder(request):

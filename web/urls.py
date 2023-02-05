@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import path
 
 from web.views import RegistrationView, LoginView, LogoutView, MainView, SpendingsListView, add_spending, \
-    SpendingUpdateView, StatsView, ProfileFormView, RemindersListView, add_reminder
+    SpendingUpdateView, StatsView, ProfileFormView, RemindersListView, add_reminder, ReminderUpdateView
 
 urlpatterns = [
     path("", MainView.as_view(), name="main"),
@@ -30,4 +30,5 @@ urlpatterns = [
     path("profile/", ProfileFormView.as_view(), name="profile"),
     path("reminders/", RemindersListView.as_view(), name="reminders"),
     path("reminders/add_reminder", add_reminder, name="add_reminder"),
+    path("reminders/<int:id>/", ReminderUpdateView.as_view(), name="update_reminder"),
 ]

@@ -28,7 +28,7 @@ class SpendingsListView(ListView):
 
 
 class SpendingUpdateView(UpdateView):
-    template_name = "web/spending.html"
+    template_name = "web/single_obj_update.html"
     form_class = SpendingForm
     slug_field = "id"
     slug_url_kwarg = "id"
