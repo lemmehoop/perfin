@@ -9,6 +9,10 @@
 {% block title %}Расходы{% endblock %}
 
 {% block body %}
+    <script src="{% static 'web/timezone.js' %}"></script>
+    <script>
+        set_timezone_cookie();
+    </script>
     <div class="container-sm d-flex align-items-center">
         <div class="row w-100">
             <div class="col-6 mb-2 mt-3 px-3">
@@ -47,9 +51,5 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="{% static 'web/spending_ajax.js' %}"></script>
-    <script src="{% static 'web/timezone.js' %}"></script>
-    <script>
-        set_timezone_cookie();
-    </script>
 
 {% endblock %}

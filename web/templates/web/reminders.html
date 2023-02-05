@@ -4,6 +4,10 @@
 {% block title %}Напоминания{% endblock %}
 
 {% block body %}
+    <script src="{% static 'web/timezone.js' %}"></script>
+    <script>
+        set_timezone_cookie();
+    </script>
     <div class="container-sm d-flex align-items-center">
         <div class="row w-100">
             <div class="col-6 mb-2 mt-3 px-3">
@@ -12,7 +16,7 @@
                 </div>
             </div>
             <div class="col p-0">
-                <div class="reminders row mx-auto text-center bg-white rounded-3 mt-3" style="height: 362px; overflow-y: scroll">
+                <div class="reminders row mx-auto text-center bg-white rounded-3 mt-3">
                     <div id="list" class="pt-2 pb-1">
                         {% for spending in object_list %}
                             <div class="card mb-2 mt-1" onclick="document.location.href = '{% url "update_reminder" spending.id %}'">
@@ -40,9 +44,8 @@
                 </div>
                 <div class="row bg-white rounded-3 mt-3 mx-auto p-2 text-center">
                     <p class="m-0 fs-5">
-                        You should register in
-                        <a href="https://t.me/perfin1_bot" class="text-decoration-none" target="_blank">perfin bot</a>
-                        to get notifications
+                        <a href="https://t.me/perfin1_bot" class="text-decoration-none" target="_blank">Телеграм бот</a>
+                        для уведомлений
                     </p>
                 </div>
             </div>
@@ -51,8 +54,4 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="{% static 'web/reminder_ajax.js' %}"></script>
-    <script src="{% static 'web/timezone.js' %}"></script>
-    <script>
-        set_timezone_cookie();
-    </script>
 {% endblock %}
