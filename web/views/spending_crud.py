@@ -3,7 +3,7 @@ from datetime import date, timedelta
 from django.db.models import Q
 from django.http import JsonResponse
 from django.urls import reverse
-from django.views.generic import ListView, UpdateView
+from django.views.generic import ListView, UpdateView, DeleteView
 
 from web.forms import SpendingForm
 from web.models import Spending
@@ -36,6 +36,15 @@ class SpendingUpdateView(UpdateView):
     def get_queryset(self):
         queryset = Spending.objects.filter(user=self.request.user)
         return queryset
+
+    def get_success_url(self):
+        return reverse("spendings")
+
+
+class SpendingDeleteView(DeleteView):
+    model = Spending
+    slug_field = "id"
+    slug_url_kwarg = "id"
 
     def get_success_url(self):
         return reverse("spendings")

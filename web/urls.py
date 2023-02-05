@@ -17,7 +17,7 @@ from django.urls import path
 
 from web.views import RegistrationView, LoginView, LogoutView, MainView, SpendingsListView, add_spending, \
     SpendingUpdateView, StatsView, ProfileFormView, RemindersListView, add_reminder, ReminderUpdateView, \
-    ReminderDeleteView
+    ReminderDeleteView, SpendingDeleteView
 
 urlpatterns = [
     path("", MainView.as_view(), name="main"),
@@ -27,6 +27,7 @@ urlpatterns = [
     path("spendings/", SpendingsListView.as_view(), name="spendings"),
     path("spendings/add_spending", add_spending, name="add_spending"),
     path("spendings/<int:id>/", SpendingUpdateView.as_view(), name="update_spending"),
+    path("spendings/<int:id>/delete/", SpendingDeleteView.as_view(), name="delete_spending"),
     path("stats/", StatsView.as_view(), name="stats"),
     path("profile/", ProfileFormView.as_view(), name="profile"),
     path("reminders/", RemindersListView.as_view(), name="reminders"),

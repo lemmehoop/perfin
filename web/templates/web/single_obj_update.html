@@ -9,7 +9,8 @@
                 {% include "web/snippets/form.html" with button="Сохранить" type="submit" %}
             </div>
             <div class="text-center mt-3">
-                <form method="post" action="{% url "delete_reminder" object.id %}">
+                <form method="post" action="{% if object.remind_at %}{% url "delete_reminder" object.id %}
+                                            {% else %}{% url "delete_spending" object.id %}{% endif %}">
                    {% csrf_token %}
                     <input type="submit" class="btn btn-danger" value="Удалить">
                 </form>
