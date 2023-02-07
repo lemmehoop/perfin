@@ -1,5 +1,7 @@
 import json
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from pytz import timezone as tz
 from django.http import JsonResponse, HttpResponseRedirect
@@ -13,7 +15,7 @@ from web.models import Reminder
 from web.forms import ReminderForm
 
 
-class RemindersListView(ListView):
+class RemindersListView(LoginRequiredMixin, ListView):
     template_name = "web/reminders.html"
 
     def get_queryset(self):
@@ -29,7 +31,7 @@ class RemindersListView(ListView):
         }
 
 
-class ReminderUpdateView(UpdateView):
+class ReminderUpdateView(LoginRequiredMixin, UpdateView):
     slug_field = "id"
     slug_url_kwarg = "id"
     form_class = ReminderForm
@@ -54,7 +56,7 @@ class ReminderUpdateView(UpdateView):
         return reverse("reminders")
 
 
-class ReminderDeleteView(DeleteView):
+class ReminderDeleteView(LoginRequiredMixin, DeleteView):
     model = Reminder
     slug_field = "id"
     slug_url_kwarg = "id"
@@ -70,6 +72,7 @@ class ReminderDeleteView(DeleteView):
         return HttpResponseRedirect(self.get_success_url())
 
 
+@login_required
 def add_reminder(request):
     title = request.POST.get("title")
     remind_at = request.POST.get("remind_at")

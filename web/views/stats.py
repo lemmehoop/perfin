@@ -1,5 +1,6 @@
 from datetime import date, timedelta
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import View
 from django.db.models import Sum, Q
@@ -8,7 +9,7 @@ from web.enums import Category
 from web.models import Spending
 
 
-class StatsView(View):
+class StatsView(LoginRequiredMixin, View):
     def get_values(self, request, start_date, end_date):
         res = []
         aggregated = Spending.objects.filter(user=request.user)\

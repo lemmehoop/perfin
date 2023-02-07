@@ -1,5 +1,7 @@
 from datetime import date, timedelta
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import JsonResponse
 from django.urls import reverse
@@ -9,7 +11,7 @@ from web.forms import SpendingForm
 from web.models import Spending
 
 
-class SpendingsListView(ListView):
+class SpendingsListView(LoginRequiredMixin, ListView):
     template_name = "web/spendings.html"
 
     def get_queryset(self):
@@ -27,7 +29,7 @@ class SpendingsListView(ListView):
         }
 
 
-class SpendingUpdateView(UpdateView):
+class SpendingUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "web/single_obj_update.html"
     form_class = SpendingForm
     slug_field = "id"
@@ -41,7 +43,7 @@ class SpendingUpdateView(UpdateView):
         return reverse("spendings")
 
 
-class SpendingDeleteView(DeleteView):
+class SpendingDeleteView(LoginRequiredMixin, DeleteView):
     model = Spending
     slug_field = "id"
     slug_url_kwarg = "id"
@@ -50,6 +52,7 @@ class SpendingDeleteView(DeleteView):
         return reverse("spendings")
 
 
+@login_required
 def add_spending(request):
     title = request.POST.get("title")
     amount = request.POST.get("amount")
