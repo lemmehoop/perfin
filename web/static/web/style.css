@@ -10,7 +10,7 @@ body {
 }
 
 .container, .container-sm {
-    height: 80vh;
+    height: 88vh;
 }
 
 .form {
@@ -46,6 +46,6 @@ body {
 }
 
 .reminders {
-    height: 362px;
+    height: 432px;
     overflow-y: scroll;
 }

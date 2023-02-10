@@ -15,8 +15,8 @@
                     {% include "web/snippets/form.html" with button="Добавить" id="r_form" type="button" %}
                 </div>
             </div>
-            <div class="col p-0">
-                <div class="reminders row mx-auto text-center bg-white rounded-3 mt-3">
+            <div class="col p-0 h-100">
+                <div class="reminders row mx-auto text-center bg-white rounded-3 mt-3" style="height: 432px">
                     <div id="list" class="pt-2 pb-1">
                         {% for spending in object_list %}
                             <div class="card mb-2 mt-1" onclick="document.location.href = '{% url "update_reminder" spending.id %}'">

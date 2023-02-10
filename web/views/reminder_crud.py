@@ -79,6 +79,7 @@ def add_reminder(request):
     text = request.POST.get("text")
     category = request.POST.get("category")
     amount = request.POST.get("amount")
+    interval = request.POST.get("interval")
 
     naive_datetime = datetime.strptime(remind_at, '%Y-%m-%dT%H:%M')
     aware_datetime = make_aware(naive_datetime, timezone=tz(str(timezone.get_current_timezone())))
@@ -96,18 +97,18 @@ def add_reminder(request):
     crontab, _ = CrontabSchedule.objects.get_or_create(
         minute=str(aware_datetime.minute),
         hour=str(aware_datetime.hour),
-        day_of_week="*",
-        day_of_month=str(aware_datetime.day),
+        day_of_week="*" if interval != "week" else str(aware_datetime.weekday()),
+        day_of_month="*" if interval != "month" else str(aware_datetime.day),
         month_of_year="*",
     )
 
-    PeriodicTask.objects.create(
-        name=f"send_notification_{reminder.id}",
-        task="send_notification",
-        crontab=crontab,
-        kwargs=json.dumps({"id": reminder.id}),
-        start_time=timezone.now(),
-    )
+    # PeriodicTask.objects.create(
+    #     name=f"send_notification_{reminder.id}",
+    #     task="send_notification",
+    #     crontab=crontab,
+    #     kwargs=json.dumps({"id": reminder.id}),
+    #     start_time=timezone.now(),
+    # )
 
     return JsonResponse({
         "title": reminder.title,
