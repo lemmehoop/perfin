@@ -48,7 +48,8 @@ class ReminderUpdateView(LoginRequiredMixin, UpdateView):
         cron.minute = str(self.object.remind_at.minute)
         self.object.remind_at -= self.object.remind_at.utcoffset()  # to contain datetime in UTC
         cron.hour = str(self.object.remind_at.hour)
-        cron.day_of_month = str(self.object.remind_at.day)
+        cron.day_of_week = "*" if form.cleaned_data["interval"] != "week" else str(self.object.remind_at.weekday())
+        cron.day_of_month = "*" if form.cleaned_data["interval"] != "month" else str(self.object.remind_at.day)
         cron.save()
         return HttpResponseRedirect(self.get_success_url())
 
