@@ -6,6 +6,7 @@ from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
+from web.enums import Interval
 from web.models import User, Spending, Reminder
 
 
@@ -133,12 +134,19 @@ class ReminderForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.label_suffix = ""
         for attr, value in self.fields.items():
-            if attr == "category":
+            if attr == "interval":
                 self.fields[attr].widget.attrs.update({"class": "form-select mb-3"})
+            elif attr == "category":
+                self.fields[attr].widget.attrs.update({"class": "form-select mb-2"})
             elif attr == "text":
                 self.fields[attr].widget.attrs.update({"class": "form-control mb-2", "rows": "1"})
             else:
                 self.fields[attr].widget.attrs.update({"class": "form-control mb-2"})
+
+    interval = forms.ChoiceField(
+        label="Интервал повторения",
+        choices=Interval.choices
+    )
 
     class Meta:
         model = Reminder

@@ -8,3 +8,9 @@ class Category(models.TextChoices):
     health = "health", "Здоровье"
     purchase = "purchase", "Покупки"
     other = "other", "Другое"
+
+
+class Interval(models.TextChoices):
+    day = "day", "День"
+    week = "week", "Неделя"
+    month = "month", "Месяц"
