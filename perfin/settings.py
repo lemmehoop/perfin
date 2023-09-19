@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-jg3(l!t(#wvpf!rxdtz)(o2@ol2xyf@^pk-1935fw*!2duwdoy
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = [os.environ.get("HOST")]
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1"]
 
 
 # Application definition
@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_celery_beat',
     'googlecharts',
-    'tgbot',
     'web',
 ]
 
@@ -84,12 +83,8 @@ WSGI_APPLICATION = 'perfin.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DB_NAME", "perfin"),
-        "USER": os.environ.get("DB_USER", "perfin"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "perfin"),
-        "HOST": os.environ.get("DB_HOST", "localhost"),
-        "PORT": int(os.environ.get("DB_PORT", 5436)),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
